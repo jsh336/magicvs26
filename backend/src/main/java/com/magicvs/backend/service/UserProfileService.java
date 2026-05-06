@@ -7,7 +7,6 @@ import com.magicvs.backend.dto.UserDeckSummaryDto;
 import com.magicvs.backend.model.Deck;
 import com.magicvs.backend.model.DeckCard;
 import com.magicvs.backend.model.User;
-import com.magicvs.backend.service.AchievementService;
 import com.magicvs.backend.repository.RegistroRepository;
 import com.magicvs.backend.repository.DeckRepository;
 import com.magicvs.backend.util.ValidationUtils;
@@ -86,6 +85,13 @@ public class UserProfileService {
 
         user.setUpdatedAt(java.time.LocalDateTime.now());
         User saved = registroRepository.save(user);
+
+        // Increment profile-edit achievement
+        try {
+            achievementService.increment(saved, "PROFILE_EDIT");
+        } catch (Exception ignored) {
+            // Don't fail profile update if achievement increment fails
+        }
 
         return toProfileResponse(saved, deckRepository.countByUserId(userId));
     }

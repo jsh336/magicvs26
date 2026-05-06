@@ -100,6 +100,15 @@ public class AchievementInitializer implements CommandLineRunner {
             achievement("NEWS_200",      "Analista",              "Visita Noticias 200 veces.",               AchievementCategory.SOCIAL,  200, 100, AchievementRank.PLATINO),
             achievement("NEWS_1000",     "Enciclopedia viva",     "Visita Noticias 1000 veces.",              AchievementCategory.SOCIAL, 1000, 200, AchievementRank.DIAMANTE),
 
+            // --- VISTA DE CARTA ---
+            achievement("CARD_VIEW_FIRST",    "Curioso",              "Mira el detalle de una carta por primera vez.", AchievementCategory.SOCIAL,    1,   5, AchievementRank.BRONCE),
+            achievement("CARD_VIEW_10",       "Curioso habitual",     "Mira el detalle de 10 cartas.",                   AchievementCategory.SOCIAL,   10,  25, AchievementRank.PLATA),
+            achievement("CARD_VIEW_50",       "Ojeador",              "Mira el detalle de 50 cartas.",                   AchievementCategory.SOCIAL,   50,  60, AchievementRank.ORO),
+            achievement("CARD_VIEW_200",      "Coleccionista visual", "Mira el detalle de 200 cartas.",                  AchievementCategory.SOCIAL,  200, 100, AchievementRank.PLATINO),
+            achievement("CARD_VIEW_1000",     "Archivista",           "Mira el detalle de 1000 cartas.",                 AchievementCategory.SOCIAL, 1000, 200, AchievementRank.DIAMANTE),
+            
+            // --- PERFIL ---
+            achievement("PROFILE_EDIT",  "Perfil actualizado",   "Actualiza los datos de tu perfil.",      AchievementCategory.SOCIAL,    1,   5, AchievementRank.BRONCE),
             // --- FAVORITOS (CARTAS) ---
             achievement("FAVORITES_FIRST",   "Corazón inicial",       "Marca tu primera carta como favorita.",      AchievementCategory.SOCIAL,    1,  10, AchievementRank.BRONCE),
             achievement("FAVORITES_10",      "Coleccionista aficionado","Marca 10 cartas como favoritas.",            AchievementCategory.SOCIAL,   10,  25, AchievementRank.PLATA),
@@ -117,7 +126,8 @@ public class AchievementInitializer implements CommandLineRunner {
             // --- HITOS DE ELO ---
             achievement("ELO_1400",     "Ascendiendo",           "Alcanza 1400 puntos de ELO.",             AchievementCategory.MILESTONE, 1,  30, AchievementRank.PLATA),
             achievement("ELO_1600",     "Élite",                 "Alcanza 1600 puntos de ELO.",             AchievementCategory.MILESTONE, 1,  60, AchievementRank.ORO),
-            achievement("ELO_2000",     "Grandmaster",           "Alcanza 2000 puntos de ELO.",             AchievementCategory.MILESTONE, 1, 100, AchievementRank.PLATINO)
+            achievement("ELO_2000",     "Grandmaster",           "Alcanza 2000 puntos de ELO.",             AchievementCategory.MILESTONE, 1, 100, AchievementRank.PLATINO),
+            achievement("ELO_2400",     "Inmortal",              "Alcanza 2400 puntos de ELO.",             AchievementCategory.MILESTONE, 1, 200, AchievementRank.DIAMANTE)
         );
     }
 

@@ -26,7 +26,9 @@ export class CardService {
   }
 
   getCardById(id: string): Observable<Card> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+    const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+    const headers = token ? { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) } : {};
+    return this.http.get<any>(`${this.apiUrl}/${id}`, headers).pipe(
       map(card => this.mapBackendCardToCard(card))
     );
   }

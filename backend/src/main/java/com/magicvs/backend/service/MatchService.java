@@ -139,5 +139,6 @@ public class MatchService {
         if (elo >= 1400) achievementService.increment(user, "ELO_1400");
         if (elo >= 1600) achievementService.increment(user, "ELO_1600");
         if (elo >= 2000) achievementService.increment(user, "ELO_2000");
+        if (elo >= 2400) achievementService.increment(user, "ELO_2400");
     }
 }

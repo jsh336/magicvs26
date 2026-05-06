@@ -3,7 +3,6 @@ package com.magicvs.backend.controller;
 import com.magicvs.backend.model.Card;
 import com.magicvs.backend.repository.CardRepository;
 import com.magicvs.backend.repository.CardSetRepository;
-import com.magicvs.backend.service.CardService;
 import com.magicvs.backend.dto.CardSummaryDTO;
 import com.magicvs.backend.dto.CardDetailDTO;
 import com.magicvs.backend.service.CardService;
@@ -29,7 +28,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
+ 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,11 +88,33 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardsList(PageRequest.of(page, size)));
     }
     @GetMapping("/{id}")
-    public ResponseEntity<CardDetailDTO> getCardById(@PathVariable Long id) {
-        return cardService.getCardDetail(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CardDetailDTO> getCardById(@PathVariable Long id,
+                                                     @RequestHeader(name = "Authorization", required = false) String authorization) {
+        java.util.Optional<CardDetailDTO> detailOpt = cardService.getCardDetail(id);
+
+        // If the user is authenticated, increment card-view achievements
+        if (authorization != null && authorization.startsWith("Bearer ")) {
+            try {
+                String token = authorization.replace("Bearer ", "");
+                Long userId = authService.getUserId(token).orElse(null);
+                if (userId != null) {
+                    registroRepository.findById(userId).ifPresent(user -> {
+                        try {
+                            achievementService.increment(user, "CARD_VIEW_FIRST");
+                            achievementService.increment(user, "CARD_VIEW_10");
+                            achievementService.increment(user, "CARD_VIEW_50");
+                            achievementService.increment(user, "CARD_VIEW_200");
+                            achievementService.increment(user, "CARD_VIEW_1000");
+                        } catch (Exception ignored) {
+                        }
+                    });
                 }
+            } catch (Exception ignored) {
+            }
+        }
+
+        return detailOpt.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
 
     /**
      * Busca cartas por nombre con paginacion
