@@ -58,6 +58,8 @@ export class DeckDetailComponent implements OnInit {
 
   readonly maxCurveValue = computed(() => Math.max(1, ...this.manaCurve().map(b => b.value)));
 
+  openingHand = signal<DeckCard[]>([]);
+
   ngOnInit(): void {
     this.loadCurrentUserId();
     this.route.params.subscribe(params => {
@@ -85,7 +87,10 @@ export class DeckDetailComponent implements OnInit {
     this.deckService.getDeckById(id)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
-        next: (data) => this.deck.set(data),
+        next: (data) => {
+          this.deck.set(data);
+          this.drawOpeningHand();
+        },
         error: (err) => this.error.set(err.error?.message || 'Error al cargar el mazo')
       });
   }
@@ -99,6 +104,31 @@ export class DeckDetailComponent implements OnInit {
     const maxValue = this.maxCurveValue();
     const maxBarHeight = 64; // Estándar del creador
     return Math.max(8, Math.round((value / maxValue) * maxBarHeight));
+  }
+
+  drawOpeningHand(): void {
+    this.openingHand.set(this.buildOpeningHand());
+  }
+
+  private buildOpeningHand(): DeckCard[] {
+    const deck = this.deck();
+    if (!deck?.cards?.length) {
+      return [];
+    }
+
+    const pool: DeckCard[] = [];
+    deck.cards.forEach(card => {
+      for (let index = 0; index < card.quantity; index += 1) {
+        pool.push(card);
+      }
+    });
+
+    for (let index = pool.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [pool[index], pool[swapIndex]] = [pool[swapIndex], pool[index]];
+    }
+
+    return pool.slice(0, 7);
   }
 
   private resolveTypeGroup(typeLine: string): string {
