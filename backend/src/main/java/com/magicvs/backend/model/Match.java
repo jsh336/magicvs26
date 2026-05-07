@@ -23,7 +23,7 @@ public class Match {
     @Column(name = "winner_id")
     private Long winnerId;
 
-    // --- LÓGICA DE ELO (Tus campos para el motor de puntos) ---
+    // --- LÓGICA DE ELO ---
     private int eloBeforeP1;
     private int eloBeforeP2;
     private int eloAfterP1;

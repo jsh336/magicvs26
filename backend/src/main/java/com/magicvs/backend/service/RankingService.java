@@ -2,7 +2,7 @@ package com.magicvs.backend.service;
 
 import com.magicvs.backend.dto.RankingDTO;
 import com.magicvs.backend.model.User;
-import com.magicvs.backend.repository.UserRepository;
+import com.magicvs.backend.repository.RegistroRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 @Service
 public class RankingService {
 
-    private final UserRepository userRepository;
+    private final RegistroRepository userRepository;
 
-    public RankingService(UserRepository userRepository) {
+    public RankingService(RegistroRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -32,7 +32,7 @@ public class User {
     @Column(length = 500)
     private String bio;
 
-    // --- TU LÓGICA DE ELO Y ESTADÍSTICAS ---
+    // --- LÓGICA DE ELO Y ESTADÍSTICAS ---
     @Column(name = "elo_rating", nullable = false)
     private Integer eloRating = 1200;
 
@@ -97,7 +97,7 @@ public class User {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // --- LÓGICA DE NEGOCIO (Tu motor) ---
+    // --- LÓGICA DE NEGOCIO  ---
 
     public void addWin() {
         this.gamesPlayed++;

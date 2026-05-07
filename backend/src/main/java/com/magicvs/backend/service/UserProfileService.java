@@ -135,7 +135,7 @@ public class UserProfileService {
                 user.getAvatarUrl(),
                 user.getCountry(),
                 user.getBio(),
-                user.getEloRating(),
+                user.getElo(),
                 user.getGamesPlayed(),
                 user.getGamesWon(),
                 user.getGamesLost(),

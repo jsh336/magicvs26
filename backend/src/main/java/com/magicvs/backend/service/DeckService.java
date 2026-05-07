@@ -66,7 +66,6 @@ public class DeckService {
 
         // Check for max 4 copies
 
-
         for (Map.Entry<Long, Integer> entry : cardQuantities.entrySet()) {
             Card card = cardRepository.findById(entry.getKey())
                 .orElseThrow(() -> new IllegalArgumentException("Carta no encontrada: " + entry.getKey()));
