@@ -9,10 +9,21 @@
         </p>
       </div>
 
-      <div class="rounded-2xl border border-outline-variant/60 bg-surface/70 px-4 py-3 text-right">
-        <div class="text-xs uppercase tracking-[0.16em] text-on-surface/60">Formato</div>
-        <div class="mt-1 font-headline text-lg font-semibold text-primary">{{ deckFormatLabel }}</div>
-        <div class="mt-1 text-[11px] uppercase tracking-[0.16em] text-on-surface/55">{{ modeLabel }}</div>
+      <div class="flex items-center gap-3">
+        <button
+          (click)="openPublicDecksModal()"
+          class="flex items-center gap-2 rounded-2xl border border-secondary/40 bg-secondary/10 px-4 py-2.5 text-sm font-semibold text-secondary transition hover:bg-secondary/20"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
+          </svg>
+          Mazos Públicos
+        </button>
+        <div class="rounded-2xl border border-outline-variant/60 bg-surface/70 px-4 py-3 text-right">
+          <div class="text-xs uppercase tracking-[0.16em] text-on-surface/60">Formato</div>
+          <div class="mt-1 font-headline text-lg font-semibold text-primary">{{ deckFormatLabel }}</div>
+          <div class="mt-1 text-[11px] uppercase tracking-[0.16em] text-on-surface/55">{{ modeLabel }}</div>
+        </div>
       </div>
     </header>
 
@@ -225,9 +236,15 @@
       </aside>
 
       <main class="min-w-0">
-        <!-- Si queréis centralizar glassmorphism, podéis mover estas clases a utilidades globales del design system -->
         <app-deck-search-panel (cardSelected)="onCardSelected($event)"></app-deck-search-panel>
       </main>
     </div>
   </div>
 </div>
+
+@if (showPublicDecksModal) {
+  <app-public-decks-modal
+    (close)="closePublicDecksModal()"
+    (deckCopied)="onPublicDeckCopied($event)"
+  ></app-public-decks-modal>
+}
