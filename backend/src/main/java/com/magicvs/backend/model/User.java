@@ -33,6 +33,12 @@ public class User {
     @Column(length = 500)
     private String bio;
 
+    @Column(name = "profile_title", length = 150)
+    private String profileTitle;
+
+    @Column(name = "featured_achievement_keys", columnDefinition = "TEXT")
+    private String featuredAchievementKeys;
+
     @Column(name = "elo_rating")
     private Integer eloRating;
 
@@ -165,6 +171,22 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getProfileTitle() {
+        return profileTitle;
+    }
+
+    public void setProfileTitle(String profileTitle) {
+        this.profileTitle = profileTitle;
+    }
+
+    public String getFeaturedAchievementKeys() {
+        return featuredAchievementKeys;
+    }
+
+    public void setFeaturedAchievementKeys(String featuredAchievementKeys) {
+        this.featuredAchievementKeys = featuredAchievementKeys;
     }
 
     public Integer getEloRating() {
