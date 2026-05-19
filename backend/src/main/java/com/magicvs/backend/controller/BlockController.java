@@ -39,7 +39,11 @@ public class BlockController {
         System.out.println("BlockController: Intentando bloquear targetId=" + targetId + " con token=" + (token != null ? "presente" : "null"));
         Long userId = getUserIdFromToken(token);
         System.out.println("BlockController: userId extraído=" + userId);
-        
+        // Evitar que un usuario se bloquee a sí mismo
+        if (userId != null && userId.equals(targetId)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "No puedes bloquearte a ti mismo."));
+        }
+
         try {
             blockService.blockUser(userId, targetId);
             System.out.println("BlockController: Bloqueo exitoso");
@@ -61,7 +65,11 @@ public class BlockController {
     public ResponseEntity<?> unblockUser(@RequestHeader(value = "Authorization", required = false) String token, 
                                          @PathVariable Long targetId) {
         Long userId = getUserIdFromToken(token);
-        
+        // Evitar que un usuario intente desbloquearse a sí mismo (no aplicable, pero por seguridad)
+        if (userId != null && userId.equals(targetId)) {
+            return ResponseEntity.badRequest().body(Map.of("error", "No puedes desbloquearte a ti mismo."));
+        }
+
         try {
             blockService.unblockUser(userId, targetId);
             return ResponseEntity.ok(Map.of("message", "Has desbloqueado al usuario."));
